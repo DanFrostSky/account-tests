@@ -9,9 +9,12 @@ class BankAccount
 
     debit( amt )
     {
-        this.balance -= amt;
-
-        return this.balance;
+        if (amt <= this.balance){
+            this.balance -= amt;
+            return this.balance;
+        }  else {
+            return this.balance;
+        }
     }
 
     credit( amt )
@@ -76,6 +79,20 @@ describe('Is object credited properly', function() {
     });
 });
 
+describe('Is object going overdrawn prevented', function() {
+    it('overdraft should be prevented', function () {
+        //arrange
+        var cut = new BankAccount(50);
+        var expectedResult = 50;
+        var debitAmount = 60;
+
+        //act
+        var actualResult = cut.debit(debitAmount);
+
+        //assert
+        assert.strictEqual(cut.queryBalance(), expectedResult, "Overdraft Happened");
+    });
+})
 
 
 /*describe('Is object credited properly', function() {
