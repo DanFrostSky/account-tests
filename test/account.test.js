@@ -60,6 +60,25 @@ describe('Is object debited properly', function() {
 });
 
 describe('Is object credited properly', function() {
+    it('balance shoule be increased', function() {
+        //arrange
+        var cut = new BankAccount(50);
+        var expectedResult = 100;
+        var creditAmount = 50;
+
+        //act
+        var actualResult = cut.credit(creditAmount);
+
+        //assert
+        assert.strictEqual(actualResult, expectedResult, "Credit check fails");
+        assert.strictEqual(cut.queryBalance(), expectedResult, "Query Balance fails");
+
+    });
+});
+
+
+
+/*describe('Is object credited properly', function() {
     it('Balance should be increased', function() {
         // arrange...
         var cut = new BankAccount(50);
@@ -73,4 +92,5 @@ describe('Is object credited properly', function() {
         assert.strictEqual(actualResult, expectedResult, "credit() failed");
         assert.strictEqual(cut.queryBalance(), expectedResult+1, "queryBalance() failed");
     });
-});
+});*/
+
