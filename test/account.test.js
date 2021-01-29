@@ -7,14 +7,28 @@ class BankAccount
         this.balance = amount;
     }
 
-    debit( amt )
+    /*debit( amt )
     {
-        if (amt <= this.balance){
+        if (amt > this.balance){
+            return this.balance; 
+        }  else if (amt <= 20) {
+           this.balance -= amt;
+           return this.balance;
+        } else {
+            amt = amt + 1;
             this.balance -= amt;
             return this.balance;
-        }  else {
-            return this.balance;
         }
+    }*/
+    debit( amt )
+    {
+        if(amt > 20)//don't need the else statements from my code;
+            amt++;  //if this statement isn't true it doesn't execute it
+
+        if(this.balance - amt >= 0)
+            this.balance -= amt;//so here if would go negative 
+                                //doesn't do the amt change as dependent on that
+        return this.balance;
     }
 
     credit( amt )
@@ -50,7 +64,7 @@ describe('Is object debited properly', function() {
     it('Balance should be reduced', function() {
         // arrange...
         var cut = new BankAccount(50);
-        var expectedResult = 20;
+        var expectedResult = 19;
         var debitAmount = 30;
 
         // act...
@@ -80,7 +94,7 @@ describe('Is object credited properly', function() {
 });
 
 describe('Is object going overdrawn prevented', function() {
-    it('overdraft should be prevented', function () {
+    it('balance should stay the same if debit>balance', function () {
         //arrange
         var cut = new BankAccount(50);
         var expectedResult = 50;
@@ -93,6 +107,23 @@ describe('Is object going overdrawn prevented', function() {
         assert.strictEqual(cut.queryBalance(), expectedResult, "Overdraft Happened");
     });
 })
+
+describe('Is object applying debit charge', function() {
+    it('debit should have +1 surcharge when >20', function() {
+        //arrange
+        var cut = new BankAccount(50);
+        var expectedResult = 19;
+        var debitAmount =30
+
+        //act
+        var actualResult = cut.debit(debitAmount);
+
+        //assert
+        assert.strictEqual(actualResult, expectedResult, "debit fee applied wrong")
+        assert.strictEqual(cut.queryBalance(), expectedResult, "end balance wrong");
+
+    });
+});
 
 
 /*describe('Is object credited properly', function() {
