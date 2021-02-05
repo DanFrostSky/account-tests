@@ -1,4 +1,3 @@
-var assert = require("assert");
 var expect = require('chai').expect;
 var should = require('chai').should();
 
@@ -30,7 +29,7 @@ class BankAccount
         if(this.balance - amt >= 0)
             this.balance -= amt;//so here if would go negative 
                                 //doesn't do the amt change as dependent on that
-                                
+
         return this.balance;
     }
 
@@ -74,7 +73,7 @@ describe('Is object debited properly', function() {
         var actualResult = cut.debit(debitAmount);
 
         // assert...
-        actualResult.should.equal( expectedResult);
+        actualResult.should.equal(expectedResult);
         expect(cut.queryBalance()).to.equal(expectedResult);
     });
 });
@@ -127,21 +126,4 @@ describe('Is object applying debit charge', function() {
 
     });
 });
-
-
-/*describe('Is object credited properly', function() {
-    it('Balance should be increased', function() {
-        // arrange...
-        var cut = new BankAccount(50);
-        var expectedResult = 80;
-        var creditAmount = 30;
-
-        // act...
-        var actualResult = cut.credit(creditAmount);
-
-        // assert...
-        assert.strictEqual(actualResult, expectedResult, "credit() failed");
-        assert.strictEqual(cut.queryBalance(), expectedResult+1, "queryBalance() failed");
-    });
-});*/
 
